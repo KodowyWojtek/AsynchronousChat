@@ -1,0 +1,62 @@
+﻿@model LoginModel
+@inject SignInManager<IdentityUser> signInManager;
+@{
+    ViewData["Title"] = "Home Page";
+}
+    <body>
+        @if (!signInManager.IsSignedIn(User))
+        {
+            <div class="modal-body row">
+                <div class="col-md-6" id="netVanta"></div>
+                <div class="col-md-6">
+                    <h1>Login</h1>
+                    <form method="post" asp-action="login" autocomplete="off">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="UserLogin"></label>
+                            <input asp-for="UserLogin" class="form-control" placeholder="Email address..."/>
+                            <span asp-validation-for="UserLogin" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UserPassword"></label>
+                            <input asp-for="UserPassword" class="form-control" placeholder="User password..."/>
+                            <span asp-validation-for="UserPassword" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="RememberMe">
+                                    <input asp-for="RememberMe" />
+                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="modal-body row">
+                <div class="col-md-12">
+                    <h1 align="middle">Welcome! @User.Identity.Name</h1>
+                </div>
+            </div>           
+        }
+
+        <script src="https://www.vantajs.com/vendor/three.r95.min.js"></script>
+        <script src="https://www.vantajs.com/dist/vanta.net.min.js"></script>
+        <script>
+            VANTA.NET({
+                el: "#netVanta",
+                mouseControls: true,
+                touchControls: true,
+                minHeight: 535.00,
+                minWidth: 500.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0xa91448,
+                backgroundColor: 0xffffff
+            })
+        </script>
+    </body>

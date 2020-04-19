@@ -1,0 +1,74 @@
+﻿@inject SignInManager<IdentityUser> signInManager;
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Pixel</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>                   
+                </ul>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav ml-auto">
+                        @if (signInManager.IsSignedIn(User))
+                        {                            
+                            <li>
+                                <div class="nav-item dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="display:inline-block; cursor:pointer; background-color:inherit; border:none; outline:none; box-shadow:none; color: black">
+                                        Settings
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li style="text-align:center"><a class="nav-link text-dark" style="display:inline;" asp-area="" asp-controller="Account" asp-action="Account">Account</a></li>
+                                        <option style="font-size: 0.1pt; background-color: lightgray;" disabled>&nbsp;</option>                           
+                                        <li style="text-align:center">
+                                            <form method="post" asp-controller="Account" asp-action="Logout" >
+                                                <input type="submit" style="background-color:inherit; border:none; outline:none; box-shadow:none;" value="Logout"/>                                              
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>                           
+                        }
+                        else
+                        {                      
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container bg-white">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container bg-white">
+            &copy; 2020 - Wojciech Kurowski -
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
