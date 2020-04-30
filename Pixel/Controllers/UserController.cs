@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pixel.Database;
 using Pixel.Models;
+using X.PagedList;
 
 namespace Pixel.Controllers
 {
@@ -19,10 +20,11 @@ namespace Pixel.Controllers
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> User()
-        {       
-            var model = await _context.UsersModel.Select(user=>user.UserLogin).ToListAsync();
-            return View(model);
+        public async Task<IActionResult> User(int? page)
+        {
+            var model = await _context.UsersModel.Select(user => user.UserLogin).ToListAsync();
+            var pagedModel = model.ToPagedList(page ?? 1, 5);
+            return View(pagedModel);
         }
         [Authorize]
         [HttpPost] 
