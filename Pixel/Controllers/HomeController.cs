@@ -25,7 +25,7 @@ namespace Pixel.Controllers
         }
         [HttpGet]
         public IActionResult Index()
-        {           
+        {          
             return View();
         }
         [HttpPost]
@@ -44,12 +44,10 @@ namespace Pixel.Controllers
             }
             return View("index", model);
         }
-
         public IActionResult Privacy()
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

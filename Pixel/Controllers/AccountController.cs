@@ -51,7 +51,7 @@ namespace Pixel.Controllers
             return View(model);
         }
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -80,8 +80,6 @@ namespace Pixel.Controllers
             update.Gender = Enum.GetName(typeof(Gender), int.Parse(model.Gender));
             _context.Update(update);
             await _context.SaveChangesAsync();
-
-
             return View(model);
         }
     }

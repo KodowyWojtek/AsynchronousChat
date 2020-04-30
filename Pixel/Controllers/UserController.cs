@@ -24,7 +24,6 @@ namespace Pixel.Controllers
             var model = await _context.UsersModel.Select(user=>user.UserLogin).ToListAsync();
             return View(model);
         }
-
         [Authorize]
         [HttpPost] 
         public async Task<IActionResult> User(string UserLogin)
@@ -42,8 +41,5 @@ namespace Pixel.Controllers
             
             return View();
         }
-
-
-
     }
 }
