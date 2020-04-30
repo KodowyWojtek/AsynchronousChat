@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pixel", "Pixel\Pixel.csproj", "{C970A8F4-8C02-4090-AA5A-581BCC994330}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pixel", "Pixel\Pixel.csproj", "{C970A8F4-8C02-4090-AA5A-581BCC994330}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketConsoleApp", "WebSocketConsoleApp\WebSocketConsoleApp.csproj", "{0099E017-E8B6-4DE4-B2CD-84976E5AE538}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C970A8F4-8C02-4090-AA5A-581BCC994330}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C970A8F4-8C02-4090-AA5A-581BCC994330}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C970A8F4-8C02-4090-AA5A-581BCC994330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0099E017-E8B6-4DE4-B2CD-84976E5AE538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0099E017-E8B6-4DE4-B2CD-84976E5AE538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0099E017-E8B6-4DE4-B2CD-84976E5AE538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0099E017-E8B6-4DE4-B2CD-84976E5AE538}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

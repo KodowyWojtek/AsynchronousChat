@@ -1,0 +1,21 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "Find user";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data" asp-action="User">
+            <div class="form-group">
+                <table width="100%" border-collapse="collapse">
+                    @foreach (var UserLogin in Model)
+                    {
+                        <tr>
+                            <td height="60"><input class="btn btn-primary" type="submit" value="@UserLogin" style="float:left; margin-left:20px; margin-top:15px;height:40px;width:300px;background-color:transparent;border-color:black;color:black" asp-for="@UserLogin"></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </form>
+    </div>
+</div>

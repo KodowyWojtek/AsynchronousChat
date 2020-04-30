@@ -23,7 +23,6 @@ namespace Pixel.Models
         [Required]
         [DisplayName("Date of birth")]
         [DataType(DataType.Date)]
-        [CustomDateAttribute(ErrorMessage ="Incorrect date range")]     
         public DateTime DateOfBirth { get; set; } 
         [Required]
         [DisplayName("Gender")]      

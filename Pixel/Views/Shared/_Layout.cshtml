@@ -16,8 +16,12 @@
             <div class="container">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>                   
+                        <a class="navbar-brand" style="font-size:20px" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <a class="navbar-brand" style="font-size:20px" asp-area="" asp-controller="User" asp-action="User">Users</a>
+                        }
+                    </li>
                 </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -26,27 +30,28 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav ml-auto">
                         @if (signInManager.IsSignedIn(User))
-                        {                            
+                        {
                             <li>
                                 <div class="nav-item dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="display:inline-block; cursor:pointer; background-color:inherit; border:none; outline:none; box-shadow:none; color: black">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="display:inline-block; cursor:pointer; background-color:inherit; border:none; outline:none; box-shadow:none; color: black; font-size:20px">
                                         Settings
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li style="text-align:center"><a class="nav-link text-dark" style="display:inline;" asp-area="" asp-controller="Account" asp-action="Account">Account</a></li>
-                                        <option style="font-size: 0.1pt; background-color: lightgray;" disabled>&nbsp;</option>                           
+                                        <option style="font-size: 0.1pt; background-color: lightgray;" disabled>&nbsp;</option>
                                         <li style="text-align:center">
-                                            <form method="post" asp-controller="Account" asp-action="Logout" >
-                                                <input type="submit" style="background-color:inherit; border:none; outline:none; box-shadow:none;" value="Logout"/>                                              
+                                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                                <input type="submit" style="background-color:inherit; border:none; outline:none; box-shadow:none;" value="Logout" />
                                             </form>
                                         </li>
                                     </ul>
                                 </div>
-                            </li>                           
+                            </li>
+
                         }
                         else
-                        {                      
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                             </li>

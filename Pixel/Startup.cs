@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pixel.Database;
+using Pixel.Handlers;
+using Pixel.SocketManager;
+using System;
 
 namespace Pixel
 {
@@ -23,6 +26,7 @@ namespace Pixel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddWebSocketManager();
             services.AddControllersWithViews();
             services.AddDbContext<AccountContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AccountContext")));
@@ -43,7 +47,7 @@ namespace Pixel
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -55,6 +59,9 @@ namespace Pixel
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseWebSockets(); //???
+            app.MapSockets("/ws", serviceProvider.GetService<WebSocketMessageHandler>());
+            
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();

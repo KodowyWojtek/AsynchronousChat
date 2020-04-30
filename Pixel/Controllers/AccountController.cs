@@ -50,6 +50,7 @@ namespace Pixel.Controllers
             }
             return View(model);
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -60,23 +61,7 @@ namespace Pixel.Controllers
         public IActionResult Login()
         {
             return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(model.UserLogin, model.UserPassword, model.RememberMe, false);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("index", "home");
-                }
-
-                ModelState.AddModelError("", "Invalid login attempt");
-            }
-            return View(model);
-        }
+        }    
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> Account()

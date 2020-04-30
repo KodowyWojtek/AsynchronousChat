@@ -23,12 +23,10 @@
                             <span asp-validation-for="UserPassword" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <div class="checkbox">
-                                <label asp-for="RememberMe">
-                                    <input asp-for="RememberMe" />
-                                    @Html.DisplayNameFor(m => m.RememberMe)
-                                </label>
-                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" asp-for="RememberMe" />
+                                <label class="custom-control-label" asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                            </div>                            
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -58,5 +56,5 @@
                 color: 0xa91448,
                 backgroundColor: 0xffffff
             })
-        </script>
+        </script>      
     </body>
