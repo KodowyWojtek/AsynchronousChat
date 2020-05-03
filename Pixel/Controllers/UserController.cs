@@ -39,9 +39,8 @@ namespace Pixel.Controllers
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> UserChat(string UserLogin)
-        {
-            
-            return View();
+        {            
+            return View(UserLogin);
         }
     }
 }

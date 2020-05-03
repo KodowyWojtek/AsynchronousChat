@@ -17,7 +17,7 @@
                     }
                 </table>
                 <div style="float:left; margin-left:20px; margin-top:15px;" >
-                    @Html.PagedListPager(Model, page => Url.Action("User", new { page }), new PagedListRenderOptions{       
+                    @Html.PagedListPager(Model, page => Url.Action("User", new { page }), new X.PagedList.Mvc.Core.Common.PagedListRenderOptions{       
 	ContainerDivClasses = new[] { "navigation" },
 	LiElementClasses = new[] { "page-item" },
 	PageClasses = new[] { "page-link" },
