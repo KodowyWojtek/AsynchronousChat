@@ -39,8 +39,14 @@ namespace Pixel.Controllers
         [Authorize]
         [HttpGet]
         public IActionResult UserChat(string UserLogin)
-        {            
-            return View(UserLogin);
+        {
+            return View("UserChat", UserLogin);
+        }
+
+
+        public IActionResult Send(string message)
+        {
+            return View("UserChat", message);
         }
     }
 }

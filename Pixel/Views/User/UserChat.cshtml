@@ -1,4 +1,40 @@
 ﻿@model  string
 
-<h1>UserChat</h1>
-
+<h1>Chatting with @Model</h1>
+<br />
+<input type="text" placeholder="Enter your message..." id="messageToSend"/>
+<button id="sendButton" asp-controller="User" asp-action="UserChat">Send</button>
+<ul id="messages"></ul>
+<script type="text/javascript">
+    var uri = "ws://localhost:44372/ws";
+    function connect() {
+        socket = new WebSocket(uri);
+        socket.onopen = function (e) {
+            console.log("connection established")
+        };
+        socket.onclose = function (e) {
+            console.log("connection closed");
+        };
+        socket.onmessage = function (e) {
+            appendItem(list, event.data);
+            console.log(e.data);
+        }
+    }
+    connect();
+    var list = document.getElementById("messages");
+    var button = document.getElementById("sendButton");
+    button.addEventListener("click", function () {
+        var sendMessage = function (element) {
+            console.log("sending message ------");
+            socket.send(element);
+        };
+        
+        var message = document.getElementById("messageToSend");
+        sendMessage(message);
+    });
+    function appendItem(list, message) {
+        var item = document.createElement("li");
+        item.appendChild(document.createTextNode(message));
+        list.appendChild(item);
+    }
+</script>
