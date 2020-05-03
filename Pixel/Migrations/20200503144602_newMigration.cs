@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace Pixel.Migrations
 {
-    public partial class Initial : Migration
+    public partial class newMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,10 +53,11 @@ namespace Pixel.Migrations
                 {
                     UserId = table.Column<string>(type: "varchar(450)", nullable: false),
                     UserLogin = table.Column<string>(nullable: true),
-                    UserEmail = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false)
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    Gender = table.Column<string>(nullable: true),
+                    DateOfCreation = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +69,7 @@ namespace Pixel.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -88,7 +90,7 @@ namespace Pixel.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -177,8 +179,7 @@ namespace Pixel.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -204,8 +205,7 @@ namespace Pixel.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

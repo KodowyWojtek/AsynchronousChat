@@ -29,7 +29,7 @@ namespace Pixel
             services.AddWebSocketManager();
             services.AddControllersWithViews();
             services.AddDbContext<AccountContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("AccountContext")));
+            options.UseMySQL(Configuration.GetConnectionString("AccountContext")));
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 6;
