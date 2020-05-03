@@ -20,7 +20,7 @@ namespace Pixel.Controllers
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> User(int? page)
+        public async Task<IActionResult> UserList(int? page)
         {
             var model = await _context.UsersModel.Select(user => user.UserLogin).ToListAsync();
             var pagedModel = model.ToPagedList(page ?? 1, 5);
@@ -28,17 +28,17 @@ namespace Pixel.Controllers
         }
         [Authorize]
         [HttpPost] 
-        public async Task<IActionResult> User(string UserLogin)
+        public IActionResult UserList(string UserLogin)
         {          
             if(UserLogin != null)
             {
                 return RedirectToAction("UserChat", "User", new { UserLogin = UserLogin });
             }
-            return RedirectToAction("User", "User");
+            return RedirectToAction("UserList", "User");
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> UserChat(string UserLogin)
+        public IActionResult UserChat(string UserLogin)
         {            
             return View(UserLogin);
         }
