@@ -32,21 +32,23 @@ namespace Pixel.Controllers
         {          
             if(UserLogin != null)
             {
-                return RedirectToAction("UserChat", "User", new { UserLogin = UserLogin });
+                return RedirectToAction("UserChat", "User", new ChatModel { UserFrom = "", Messages = new List<string>(), UserTo = UserLogin });
             }
             return RedirectToAction("UserList", "User");
         }
         [Authorize]
         [HttpGet]
-        public IActionResult UserChat(string UserLogin)
+        public IActionResult UserChat(ChatModel chat)
         {
-            return View("UserChat", UserLogin);
+            return View("UserChat", chat);
         }
 
-
-        public IActionResult Send(string message)
+        [Authorize]
+        [HttpPost]
+        public IActionResult Send(ChatModel chat)
         {
-            return View("UserChat", message);
+            //chat.Messages.Add(chat.LastMessage);
+            return View("UserChat", chat);
         }
     }
 }
