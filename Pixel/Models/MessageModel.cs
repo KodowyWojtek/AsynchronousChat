@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pixel.Models
 {
-    public class UsersChat
+    public class MessageModel
     {
         [Key]
         public int MessageId { get; set; } 
@@ -18,16 +18,11 @@ namespace Pixel.Models
 
         [Required]
         [Column(TypeName = "varchar(450)")]
-        public string UserTwo { get; set; }
-
-        [Required]
-        public DateTime MessageDate { get; set; }
-
-        [ForeignKey("UserTo")]
-        public virtual UsersModel UserModelTo { get; set; }
-
-        [ForeignKey("UserFrom")]
-        public virtual UsersModel UserModelFrom { get; set; }
+        public string UserFrom { get; set; }
+   
+        public string MessageStore { get; set; }
+        [NotMapped]
+        public string MessageSend { get; set; }
 
     }
 }

@@ -1,4 +1,27 @@
-﻿@model  string
+﻿@model MessageModel
 
-<h1>UserChat</h1>
+<h1>Chatting with @Model.UserTo</h1>
+<br />
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input asp-for="MessageSend" class="text-black-50" placeholder="Write message" />
+                <input type="hidden" asp-for="UserTo" />
+                <input type="hidden" asp-for="UserFrom" />
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+        <div class="col-md-6">
+            @Html.Raw(@Model.MessageStore)
+        </div>
+    </div>
+</form>
+
+
+
+
+
 

@@ -12,6 +12,8 @@ namespace Pixel.Database
         }
    
         public DbSet<UsersModel> UsersModel { get; set; }
-  
+        public DbSet<MessageModel> MessageModel { get; set; }
+
+
     }
 }

@@ -22,15 +22,15 @@ namespace Pixel.Controllers
         [HttpGet]
         public async Task<IActionResult> UserList(int? page)
         {
-            var model = await _context.UsersModel.Select(user => user.UserLogin).ToListAsync();
+            var model = await _context.UsersModel.Where(user=>user.UserLogin != User.Identity.Name).Select(user => user.UserLogin).ToListAsync();
             var pagedModel = model.ToPagedList(page ?? 1, 5);
             return View(pagedModel);
         }
         [Authorize]
-        [HttpPost] 
+        [HttpPost]
         public IActionResult UserList(string UserLogin)
-        {          
-            if(UserLogin != null)
+        {
+            if (UserLogin != null)
             {
                 return RedirectToAction("UserChat", "User", new { UserLogin = UserLogin });
             }
@@ -38,9 +38,35 @@ namespace Pixel.Controllers
         }
         [Authorize]
         [HttpGet]
-        public IActionResult UserChat(string UserLogin)
-        {            
-            return View(UserLogin);
+        public async Task<IActionResult> UserChat(string UserLogin)
+        {
+            var message = await _context.MessageModel.Where(user => user.UserFrom == User.Identity.Name && user.UserTo == UserLogin || (user.UserTo == User.Identity.Name && user.UserFrom == UserLogin)).Select(user => user.MessageStore).FirstOrDefaultAsync() ?? "";
+            MessageModel messageModel = new MessageModel
+            {
+                UserTo = UserLogin,
+                UserFrom = User.Identity.Name,
+                MessageStore = message,
+                MessageSend = "",
+            };
+
+            return View(messageModel);
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> UserChat(MessageModel messageModel)
+        {
+            var user = await _context.MessageModel.Where(user => user.UserFrom == User.Identity.Name && user.UserTo == messageModel.UserTo || (user.UserTo == User.Identity.Name && user.UserFrom == messageModel.UserTo)).FirstOrDefaultAsync();
+            if(user == null)
+            {
+                messageModel.MessageStore = User.Identity.Name.ToString() + ": " + messageModel.MessageSend + "<br>";
+                _context.MessageModel.Add(messageModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("UserChat", "User", new { UserLogin = messageModel.UserTo });
+            }
+            user.MessageStore += User.Identity.Name.ToString() + ": " + messageModel.MessageSend + "<br>";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("UserChat", "User", new { UserLogin = messageModel.UserTo });
         }
     }
 }
