@@ -1,27 +1,44 @@
 ﻿@model MessageModel
-
 <h1>Chatting with @Model.UserTo</h1>
 <br />
-
 <form method="post" enctype="multipart/form-data">
-
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <input asp-for="MessageSend" class="text-black-50" placeholder="Write message" />
+                <input asp-for="MessageSend" class="text-black-50" placeholder="Write message" id="userMessage" />
                 <input type="hidden" asp-for="UserTo" />
                 <input type="hidden" asp-for="UserFrom" />
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary" id="sendMessage">Send!</button>
         </div>
         <div class="col-md-6">
             @Html.Raw(@Model.MessageStore)
+            <ul id="messagesList" class="chat"></ul>
         </div>
     </div>
 </form>
 
 
+<script src="~/lib/signalr/signalr.js">
+    const connection = new signalLR.HubConnectionBuilder().withUrl("/UserChat").build();
 
+     connection.on("ReceiveMessage", (user, message) => {
+        const rec_msg = user + ": " + message;
+        const li = document.createElement("li");
+        li.textContent = rec_msg;
+        document.getElementById("messagesList").appendChild(li);
+    });
 
+    connection.start().catch(err => console.error(err.toString()));
+    document.getElementById("sendMessage").addEventListener("click", event => {
+        const user = document.getElementById("userName").value;
+        const message = document.getElementById("userMessage").value;
+
+        connection.Invoke("sendMessage", user, message).catch(err => console.error(err.toString()));
+        event.preventDefault();
+    });
+
+   
+</script>
 
 

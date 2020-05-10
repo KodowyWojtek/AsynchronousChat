@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Find user";
 }
-
 <div class="row">
     <div class="col-md-12">
         <form method="post" enctype="multipart/form-data" asp-action="UserList">
@@ -13,14 +12,14 @@
                         <tr>
                             <td height="60"><input class="btn btn-primary" type="submit" value="@UserLogin" style="float:left; margin-left:20px; margin-top:15px;height:40px;width:300px;background-color:transparent;border-color:black;color:black" asp-for="@UserLogin"></td>
                         </tr>
-
                     }
                 </table>
-                <div style="float:left; margin-left:20px; margin-top:15px;" >
-                    @Html.PagedListPager(Model, page => Url.Action("UserList", new { page }), new X.PagedList.Mvc.Core.Common.PagedListRenderOptions{       
-	ContainerDivClasses = new[] { "navigation" },
-	LiElementClasses = new[] { "page-item" },
-	PageClasses = new[] { "page-link" },
+                <div style="float:left; margin-left:20px; margin-top:15px;">
+                    @Html.PagedListPager(Model, page => Url.Action("UserList", new { page }), new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
+                    {
+    ContainerDivClasses = new[] { "navigation" },
+    LiElementClasses = new[] { "page-item" },
+    PageClasses = new[] { "page-link" },
                     })
                 </div>
             </div>

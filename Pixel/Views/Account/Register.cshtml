@@ -1,8 +1,7 @@
 ﻿@model RegistrationModel
-@{ 
+@{
     ViewBag.Title = "User Registration";
 }
-
 <h1>Registration</h1>
 <div class="row">
     <div class="col-md-12">
@@ -10,26 +9,26 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserLogin"></label>
-                <input asp-for="UserLogin" class="form-control" placeholder="Email address..."/>
+                <input asp-for="UserLogin" class="form-control" placeholder="Email address..." />
                 <span asp-validation-for="UserLogin" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FirstName"></label>
-                <input asp-for="FirstName" class="form-control" placeholder="First name..."/>
+                <input asp-for="FirstName" class="form-control" placeholder="First name..." />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control" placeholder="Last name..."/>
+                <input asp-for="LastName" class="form-control" placeholder="Last name..." />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateOfBirth"></label>
-                <input asp-for="DateOfBirth" min="1900-01-01" max="2999-12-31" class="form-control" placeholder="Date of birth..."/>
+                <input asp-for="DateOfBirth" min="1900-01-01" max="2999-12-31" class="form-control" placeholder="Date of birth..." />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Gender"></label>         
+                <label asp-for="Gender"></label>
                 <select asp-for="Gender" class="form-control"
                         asp-items="Html.GetEnumSelectList<Gender>()">
                 </select>
@@ -37,12 +36,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="UserPassword"></label>
-                <input asp-for="UserPassword" class="form-control" placeholder="User password..."/>
+                <input asp-for="UserPassword" class="form-control" placeholder="User password..." />
                 <span asp-validation-for="UserPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm password..."/>
+                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm password..." />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>

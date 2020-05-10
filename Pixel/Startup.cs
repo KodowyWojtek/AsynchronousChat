@@ -2,14 +2,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pixel.ChatHub;
 using Pixel.Database;
-using Pixel.Handlers;
-using Pixel.SocketManager;
 using System;
 
 namespace Pixel
@@ -26,7 +26,7 @@ namespace Pixel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddWebSocketManager();
+      
             services.AddControllersWithViews();
             services.AddDbContext<AccountContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AccountContext")));
@@ -44,6 +44,7 @@ namespace Pixel
             });
             services.AddTransient<AccountContext>();
             services.AddMvc();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +60,8 @@ namespace Pixel
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseWebSockets(); //???
-            app.MapSockets("/ws", serviceProvider.GetService<WebSocketMessageHandler>());
+
+
             
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseHttpsRedirection();
@@ -70,6 +71,10 @@ namespace Pixel
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSignalR(routes => routes.MapHub<Chat>("/UserChat"));
+
+
+
 
             app.UseEndpoints(endpoints =>
             {

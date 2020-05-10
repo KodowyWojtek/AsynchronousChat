@@ -2,12 +2,11 @@
 @{
     ViewBag.Title = "User Registration";
 }
-
 <h1>Account settings</h1>
 <div class="row">
     <div class="col-md-12">
         <form method="post" autocomplete="off">
-            <div asp-validation-summary="All" class="text-danger"></div>          
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -15,12 +14,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control"/>
+                <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateOfBirth"></label>
-                <input asp-for="DateOfBirth" class="form-control"/>
+                <input asp-for="DateOfBirth" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -29,7 +28,7 @@
                         asp-items="Html.GetEnumSelectList<Gender>()">
                 </select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>          
+            </div>
             <button type="submit" class="btn btn-primary">Save</button>
             <button type="reset" class="btn btn-primary">Clear</button>
         </form>
