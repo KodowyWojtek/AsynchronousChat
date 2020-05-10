@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/KodowyWojtek/AsynchronousChat/issues"
   },
-  "homepage": "https://github.com/KodowyWojtek/AsynchronousChat#readme"
+  "homepage": "https://github.com/KodowyWojtek/AsynchronousChat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
