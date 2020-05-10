@@ -1,5 +1,3 @@
-using System;
-
 namespace Pixel.Models
 {
     public class ErrorViewModel

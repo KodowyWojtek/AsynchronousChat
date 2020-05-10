@@ -1,11 +1,9 @@
-﻿using Pixel.Attribute;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Pixel.Models
-{   
+{
     public class RegistrationModel
     {        
         [Required]

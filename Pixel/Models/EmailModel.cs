@@ -11,6 +11,5 @@ namespace Pixel.Models
         public string Message { get; set; }
         public DateTime DateOfPost { get; set; }
         public UsersModel UsersModel { get; set; }
-
     }
 }
