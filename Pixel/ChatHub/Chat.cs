@@ -38,10 +38,14 @@ namespace Pixel.ChatHub
                         _user.MessageStore = "";
                     _user.MessageStore = user.ToString() + ": " + message + "<br>";
                     _context.MessageModel.Add(_user);
+                    await _context.SaveChangesAsync();                    
+                }   
+                else
+                {
+                    userDb.MessageStore += user.ToString() + ": " + message + "<br>";
                     await _context.SaveChangesAsync();
-                }                
-                userDb.MessageStore += user.ToString() + ": " + message + "<br>";
-                await _context.SaveChangesAsync();
+                }              
+
             }
             catch (Exception ex)
             {
