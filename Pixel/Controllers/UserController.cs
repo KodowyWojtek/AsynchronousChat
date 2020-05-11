@@ -50,23 +50,6 @@ namespace Pixel.Controllers
             };
 
             return View(messageModel);
-        }
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> UserChat(MessageModel messageModel)
-        {
-            var user = await _context.MessageModel.Where(user => user.UserFrom == User.Identity.Name && user.UserTo == messageModel.UserTo || (user.UserTo == User.Identity.Name && user.UserFrom == messageModel.UserTo)).FirstOrDefaultAsync();
-            if(user == null)
-            {
-                messageModel.MessageStore = User.Identity.Name.ToString() + ": " + messageModel.MessageSend + "<br>";
-                _context.MessageModel.Add(messageModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("UserChat", "User", new { UserLogin = messageModel.UserTo });
-            }
-            user.MessageStore += User.Identity.Name.ToString() + ": " + messageModel.MessageSend + "<br>";
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("UserChat", "User", new { UserLogin = messageModel.UserTo });
-        }
+        }       
     }
 }

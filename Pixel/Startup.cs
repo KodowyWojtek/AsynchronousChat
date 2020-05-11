@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pixel.ChatHub;
 using Pixel.Database;
+using Pixel.Models;
 using System;
 
 namespace Pixel
@@ -43,6 +44,7 @@ namespace Pixel
                 options.LoginPath = "/Home/Index";
             });
             services.AddTransient<AccountContext>();
+            services.AddTransient<MessageModel>();
             services.AddMvc();
             services.AddSignalR();
         }
@@ -70,17 +72,14 @@ namespace Pixel
 
             app.UseRouting();
 
-            app.UseAuthorization();
-            app.UseSignalR(routes => routes.MapHub<Chat>("/UserChat"));
-
-
-
+            app.UseAuthorization();    
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<Chat>("/UserChat");
             });
         }
     }

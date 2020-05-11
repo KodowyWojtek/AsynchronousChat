@@ -5,40 +5,28 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <input asp-for="MessageSend" class="text-black-50" placeholder="Write message" id="userMessage" />
-                <input type="hidden" asp-for="UserTo" />
-                <input type="hidden" asp-for="UserFrom" />
+                <input asp-for="MessageSend" class="text-black-50" placeholder="Write message" id="txtMessage" />
+                <input type="hidden" asp-for="UserTo" value="@Model.UserTo" id="txtUserTo"/>
+                <input type="hidden" asp-for="UserFrom" value="@User.Identity.Name" id="txtUserName" />
             </div>
-            <button type="submit" class="btn btn-primary" id="sendMessage">Send!</button>
+            <button type="submit" class="btn btn-primary" id="btnSend">Send!</button>
         </div>
-        <div class="col-md-6">
-            @Html.Raw(@Model.MessageStore)
-            <ul id="messagesList" class="chat"></ul>
+        <div class="col-md-6" id="messageList">
+            <ul>
+                <li>@Html.Raw(@Model.MessageStore)</li>
+            </ul>
+            <ul id="messageList"></ul>
         </div>
     </div>
 </form>
 
 
-<script src="~/lib/signalr/signalr.js">
-    const connection = new signalLR.HubConnectionBuilder().withUrl("/UserChat").build();
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/lib/chat/chat.js"></script>
 
-     connection.on("ReceiveMessage", (user, message) => {
-        const rec_msg = user + ": " + message;
-        const li = document.createElement("li");
-        li.textContent = rec_msg;
-        document.getElementById("messagesList").appendChild(li);
-    });
 
-    connection.start().catch(err => console.error(err.toString()));
-    document.getElementById("sendMessage").addEventListener("click", event => {
-        const user = document.getElementById("userName").value;
-        const message = document.getElementById("userMessage").value;
 
-        connection.Invoke("sendMessage", user, message).catch(err => console.error(err.toString()));
-        event.preventDefault();
-    });
 
-   
-</script>
 
 
