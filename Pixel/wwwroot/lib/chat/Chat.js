@@ -6,7 +6,7 @@ $("#btnSend").attr("disabled", true);
 connection.on("ReceiveMessage", function (user, message, userTo) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt").replace(/>/g, "&gt;");
     var encodeMsg = user + ": " + msg;
-    $("#messageList").prepend("<li>" +encodeMsg + "</li>");
+    $("#messageList").append(encodeMsg +"<br>");
 });
 
 connection.start().then(function () {
@@ -26,4 +26,6 @@ $("#btnSend").on("click", function () {
         });
         event.preventDefault();
     }
+    $('#txtMessage').val('');
 });
+

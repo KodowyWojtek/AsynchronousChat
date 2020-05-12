@@ -22,7 +22,7 @@ namespace Pixel.Controllers
         [HttpGet]
         public async Task<IActionResult> UserList(int? page)
         {
-            var model = await _context.UsersModel.Where(user=>user.UserLogin != User.Identity.Name).Select(user => user.UserLogin).ToListAsync();
+            var model = await _context.UsersModel.Where(user => user.UserLogin != User.Identity.Name).Select(user => user.UserLogin).ToListAsync();
             var pagedModel = model.ToPagedList(page ?? 1, 5);
             return View(pagedModel);
         }
@@ -31,9 +31,7 @@ namespace Pixel.Controllers
         public IActionResult UserList(string UserLogin)
         {
             if (UserLogin != null)
-            {
-                return RedirectToAction("UserChat", "User", new { UserLogin = UserLogin });
-            }
+                return RedirectToAction("UserChat", "User", new { UserLogin });
             return RedirectToAction("UserList", "User");
         }
         [Authorize]
@@ -48,8 +46,7 @@ namespace Pixel.Controllers
                 MessageStore = message,
                 MessageSend = "",
             };
-
             return View(messageModel);
-        }       
+        }
     }
 }
