@@ -5,10 +5,10 @@ using Pixel.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Pixel.ChatHub
 {
-
     public class Chat : Hub
     {
         private readonly AccountContext _context;
@@ -37,15 +37,27 @@ namespace Pixel.ChatHub
                     if (_user.MessageStore == null)
                         _user.MessageStore = "";
                     _user.MessageStore = user.ToString() + ": " + message + "<br>";
+                    _user.UserFromRead = true;
+                    _user.UserToRead = false;
                     _context.MessageModel.Add(_user);
                     await _context.SaveChangesAsync();                    
                 }   
                 else
                 {
+                    if(userDb.UserFrom == user)
+                    {
+                        userDb.UserFromRead = true;
+                        userDb.UserToRead = false;
+                    }
+                    else
+                    {
+                        userDb.UserFromRead = false;
+                        userDb.UserToRead = true;
+
+                    }
                     userDb.MessageStore += user.ToString() + ": " + message + "<br>";
                     await _context.SaveChangesAsync();
-                }              
-
+                }             
             }
             catch (Exception ex)
             {

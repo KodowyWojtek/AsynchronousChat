@@ -1,13 +1,29 @@
 ﻿@model MessageModel
+@if(Model.UserFrom == User.Identity.Name)
+{
 <h1>Chatting with @Model.UserTo</h1>
 <br />
+}
+else
+{
+<h1>Chatting with @Model.UserFrom</h1>
+}
+
 <form method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-6 border-right">
             <div class="form-group">
-                <input asp-for="MessageSend" class="text-black-50" id="txtMessage" style="width:100%;height:55px; font-size:30px"/>
-                <input type="hidden" asp-for="UserTo" value="@Model.UserTo" id="txtUserTo" />
-                <input type="hidden" asp-for="UserFrom" value="@User.Identity.Name" id="txtUserName" />
+                <input asp-for="MessageSend" class="text-black-50" id="txtMessage" style="width:100%;height:55px; font-size:30px" />
+                @if (Model.UserTo != User.Identity.Name)
+                {
+                    <input type="hidden" asp-for="UserTo" value="@Model.UserTo" id="txtUserTo" />
+                    <input type="hidden" asp-for="UserFrom" value="@User.Identity.Name" id="txtUserName" />
+                }
+                else
+                {
+                    <input type="hidden" asp-for="UserTo" value="@User.Identity.Name" id="txtUserName" />
+                    <input type="hidden" asp-for="UserFrom" value="@Model.UserFrom"  id="txtUserTo" />
+                }
             </div>
             <button type="submit" class="btn btn-primary" id="btnSend">Send!</button>
         </div>

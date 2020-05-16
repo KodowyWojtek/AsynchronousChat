@@ -14,6 +14,10 @@ namespace Pixel.Models
         [Column(TypeName = "varchar(450)")]
         public string UserFrom { get; set; }   
         public string MessageStore { get; set; }
+        [Required]
+        public bool UserToRead { get; set; }
+        [Required]
+        public bool UserFromRead { get; set; }
         [NotMapped]
         public string MessageSend { get; set; }
     }
