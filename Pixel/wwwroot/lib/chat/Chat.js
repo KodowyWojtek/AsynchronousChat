@@ -6,14 +6,23 @@ $("#btnSend").attr("disabled", true);
 connection.on("ReceiveMessage", function (userFrom, message, userTo) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt").replace(/>/g, "&gt;");
     var encodeMsg = userFrom + ": " + msg;
-    $("#messageList").append(encodeMsg +"<br>");
+    var list = $("#messageList");
+    list.append(encodeMsg + "<br>");
+    scrollToBottom();
 });
 
 connection.start().then(function () {
     $("#btnSend").attr("disabled", false);
+    scrollToBottom();
+    $('#txtMessage').select();
 }).catch(function (err) {
     return alert(err.toString());
 });
+
+function scrollToBottom() {
+    var div = document.getElementById("messageBox");
+    div.scrollTop = div.scrollHeight - div.clientHeight;
+}
 
 $("#btnSend").on("click", function () {
     var userTo = $("#txtUserTo").val();
