@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 
 namespace Pixel.Controllers
 {
-
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly AccountContext _context;
-        public AccountController(AccountContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, AccountContext cotnext)
+        public AccountController(AccountContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -33,7 +32,7 @@ namespace Pixel.Controllers
             {
                 var user = new IdentityUser { UserName = model.UserLogin, Email = model.UserLogin };
                 var result = await _userManager.CreateAsync(user, model.UserPassword);
-                var userModel = new UsersModel { UserId = user.Id, UserLogin = model.UserLogin, FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth, Gender = model.Gender.ToString(), DateOfCreation = DateTime.Now };
+                var userModel = new UsersModel { UserId = user.Id, UserLogin = model.UserLogin, FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth, Gender = model.Gender.ToString(), DateOfCreation = DateTime.UtcNow};
                 await _context.UsersModel.AddAsync(userModel);
 
                 if (result.Succeeded)
@@ -42,7 +41,6 @@ namespace Pixel.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction("index", "home");
                 }
-
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
@@ -73,12 +71,12 @@ namespace Pixel.Controllers
         [HttpPost]
         public async Task<IActionResult> Account(UsersModel model)
         {
-            var update = await _context.UsersModel.FirstOrDefaultAsync(user => user.UserId == _userManager.GetUserId(HttpContext.User));
-            update.FirstName = model.FirstName;
-            update.LastName = model.LastName;
-            update.DateOfBirth = model.DateOfBirth;
-            update.Gender = Enum.GetName(typeof(Gender), int.Parse(model.Gender));
-            _context.Update(update);
+            var updateUserAccount = await _context.UsersModel.FirstOrDefaultAsync(user => user.UserId == _userManager.GetUserId(HttpContext.User));
+            updateUserAccount.FirstName = model.FirstName;
+            updateUserAccount.LastName = model.LastName;
+            updateUserAccount.DateOfBirth = model.DateOfBirth;
+            updateUserAccount.Gender = Enum.GetName(typeof(Gender), int.Parse(model.Gender));
+            _context.Update(updateUserAccount);
             await _context.SaveChangesAsync();
             return View(model);
         }

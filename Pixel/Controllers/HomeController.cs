@@ -5,18 +5,14 @@ using Pixel.Models;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-
-
 namespace Pixel.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<IdentityUser> _signInManager;
 
         public HomeController(ILogger<HomeController> logger, SignInManager<IdentityUser> signInManager)
         {
-            _logger = logger;
             _signInManager = signInManager;
         }
         [HttpGet]
@@ -30,12 +26,8 @@ namespace Pixel.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.UserLogin, model.UserPassword, model.RememberMe, false);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("index", "home");
-                }
-
+                if (result.Succeeded)                
+                    return RedirectToAction("index", "home");      
                 ModelState.AddModelError("", "Invalid login attempt");
             }
             return View("index", model);

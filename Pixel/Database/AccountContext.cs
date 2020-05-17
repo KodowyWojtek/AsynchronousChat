@@ -9,11 +9,8 @@ namespace Pixel.Database
         public AccountContext(DbContextOptions<AccountContext> options) : base(options)
         {
 
-        }
-   
+        }   
         public DbSet<UsersModel> UsersModel { get; set; }
         public DbSet<MessageModel> MessageModel { get; set; }
-
-
     }
 }

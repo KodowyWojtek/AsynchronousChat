@@ -3,9 +3,9 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/UserChat").build()
 
 $("#btnSend").attr("disabled", true);
 
-connection.on("ReceiveMessage", function (user, message, userTo) {
+connection.on("ReceiveMessage", function (userFrom, message, userTo) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt").replace(/>/g, "&gt;");
-    var encodeMsg = user + ": " + msg;
+    var encodeMsg = userFrom + ": " + msg;
     $("#messageList").append(encodeMsg +"<br>");
 });
 
@@ -17,11 +17,14 @@ connection.start().then(function () {
 
 $("#btnSend").on("click", function () {
     var userTo = $("#txtUserTo").val();
-    var user = $("#txtUserName").val();
+    var userFrom = $("#txtUserName").val();
     var message = $("#txtMessage").val();
+    if (message == "") {
+        message = " ";
+    }
 
-    if (user != "" && message != "" && userTo != "") {
-        connection.invoke("SendMessage", user, message, userTo).catch(function (err) {
+    if (userFrom != "" && message != "" && userTo != "") {
+        connection.invoke("SendMessage", userFrom, message, userTo).catch(function (err) {
             return alert(err.toString())
         });
         event.preventDefault();
