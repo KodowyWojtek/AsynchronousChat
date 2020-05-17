@@ -30,5 +30,6 @@ $("#btnSend").on("click", function () {
         event.preventDefault();
     }
     $('#txtMessage').val('');
+    $('#txtMessage').select();
 });
 
