@@ -5,9 +5,23 @@ $("#btnSend").attr("disabled", true);
 
 connection.on("ReceiveMessage", function (userFrom, message, userTo) {
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt").replace(/>/g, "&gt;");
-    var encodeMsg = userFrom + ": " + msg;
+    var encodeMsg = msg;
     var list = $("#messageList");
-    list.append(encodeMsg + "<br>");
+    var regex = new RegExp('(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})');
+    if (regex.test(message)) {
+        var url = regex.exec(message).shift();
+        var text = message.replace(url, '');
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "http://" + url;
+        }
+        list.append(text);
+        list.append($('<a href="' + url + '">' + url + '</a>'));
+        list.append("<br>");
+    }
+    else {
+        list.append(encodeMsg + "<br>");
+    }
+    //list.append(encodeMsg + "<br>");
     scrollToBottom();
 });
 

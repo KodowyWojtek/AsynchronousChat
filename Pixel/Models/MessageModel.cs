@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pixel.Models
@@ -20,5 +21,20 @@ namespace Pixel.Models
         public bool UserFromRead { get; set; }
         [NotMapped]
         public string MessageSend { get; set; }
+
+        [NotMapped]
+        public List<ChatMessage> Messages { get; set; }
+
+        public void GetMessages()
+        {
+            var messages = (MessageStore+MessageSend).Split("<br>");
+            Messages = new List<ChatMessage>();
+
+            foreach(var m in messages)
+            {
+                Messages.Add(ChatMessage.FromString(this, m));
+            }
+            Messages.RemoveAll(m => m == null);
+        }
     }
 }

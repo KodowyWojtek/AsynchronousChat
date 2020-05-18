@@ -20,7 +20,28 @@ else
         </style>
         @if (@Model.MessageStore != "")
         {
-            @Html.Raw(@Model.MessageStore)
+            Model.GetMessages();
+            foreach(var m in Model.Messages)
+            {
+                if(m.Type == MessageType.Text)
+                {
+                    @Html.Raw(m.ToString());
+                }
+                else if(m.Type == MessageType.Link)
+                {
+                    string url = m.Url;
+                    var temp = url.ToLower();
+                    if (!temp.StartsWith("http://") && !temp.StartsWith("https://"))
+                    {
+                        temp = "http://" + url;
+                    }
+
+                    string messageStart = m.ToString().Replace(url, "");
+                    @Html.Raw(messageStart);
+                    <a href="@temp">@url</a>
+                }
+                <br />
+            }
         }
         <div id="messageList"></div>
     </div>

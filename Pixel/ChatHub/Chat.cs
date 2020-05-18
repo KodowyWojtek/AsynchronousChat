@@ -23,8 +23,9 @@ namespace Pixel.ChatHub
         {
             try
             {
+                var chatMessage = new ChatMessage(userFrom, userTo, message, DateTime.Now);
                 await Task.Run(() => Save(userFrom, message, userTo));
-                await Clients.All.SendAsync("ReceiveMessage", userFrom, message, userTo);
+                await Clients.All.SendAsync("ReceiveMessage", userFrom, chatMessage.ToString(), userTo);
             }
             catch(Exception ex)
             {
@@ -35,12 +36,13 @@ namespace Pixel.ChatHub
         {
             try
             {
+                var chatMessage = new ChatMessage(userFrom, userTo, message, DateTime.Now);
                 var userDb = await _context.MessageModel.FirstOrDefaultAsync(user => user.UserFrom == userFrom && user.UserTo == userTo || (user.UserTo == userFrom && user.UserFrom == userTo));
                 if (userDb == null)
                 {
                     if (_user.MessageStore == null)
                         _user.MessageStore = "";
-                    _user.MessageStore = userFrom.ToString() + ": " + message + "<br>";
+                    _user.MessageStore += chatMessage.ToString() + "<br>";
                     _user.UserFrom = userFrom;
                     _user.UserTo = userTo;
                     _user.UserFromRead = true;
@@ -60,13 +62,13 @@ namespace Pixel.ChatHub
                         userDb.UserFromRead = false;
                         userDb.UserToRead = true;
                     }
-                    userDb.MessageStore += userFrom.ToString() + ": " + message + "<br>";
+                    userDb.MessageStore += chatMessage.ToString() + "<br>";
                     await _context.SaveChangesAsync();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw e;
             }          
         }
     }
