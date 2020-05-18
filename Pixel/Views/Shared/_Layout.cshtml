@@ -20,7 +20,7 @@
                         @if (signInManager.IsSignedIn(User))
                         {
                             <a class="navbar-brand" style="font-size:20px" asp-area="" asp-controller="User" asp-action="UserList">Users</a>
-                            <a class="navbar-brand" style="font-size:20px" asp-area="" asp-controller="User" asp-action="Notifications">Notifications</a>
+                            <a class="navbar-brand" id="notifications" style="font-size:20px" asp-area="" asp-controller="User" asp-action="Notifications">Notifications</a>
                         }
                     </li>
                 </ul>
