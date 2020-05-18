@@ -30,7 +30,7 @@ else
         <br />
         <form method="post" enctype="multipart/form-data">
             <div class="row">
-                <div class="col-md-6 border-left">
+                <div class="col-md-6">
                     <div class="form-group">
                         <input asp-for="MessageSend" class="text-black-50" id="txtMessage" style="width:100%;height:55px; font-size:30px" />
                         @if (Model.UserTo != User.Identity.Name)
@@ -45,7 +45,7 @@ else
                         }
                     </div>
                 </div>
-                <div class="col-md-6 border-right">
+                <div class="col-md-6">
                     <button type="submit" class="btn btn-primary" style="height:55px; width:20%" id="btnSend">Send!</button>
                 </div>
             </div>

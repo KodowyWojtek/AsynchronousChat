@@ -65,7 +65,6 @@ namespace Pixel.Controllers
                     _messageModel.UserFrom = User.Identity.Name;
                     _messageModel.UserTo = UserLogin;
                     _messageModel.UserFromRead = true;
-                    _messageModel.UserToRead = false;
                     userValues.UserFromRead = true;
                     userValues.UserToRead = false;
                     await _context.SaveChangesAsync();
@@ -74,7 +73,6 @@ namespace Pixel.Controllers
                 {
                     _messageModel.UserFrom = UserLogin;
                     _messageModel.UserTo = User.Identity.Name;
-                    _messageModel.UserFromRead = false;
                     _messageModel.UserToRead = true;
                     userValues.UserFromRead = false;
                     userValues.UserToRead = true;
@@ -86,4 +84,4 @@ namespace Pixel.Controllers
             return View(_messageModel);
         }
     }
-}
+}  
