@@ -66,7 +66,6 @@ namespace Pixel.Controllers
                     _messageModel.UserTo = UserLogin;
                     _messageModel.UserFromRead = true;
                     userValues.UserFromRead = true;
-                    userValues.UserToRead = false;
                     await _context.SaveChangesAsync();
                 }
                 else
@@ -74,7 +73,6 @@ namespace Pixel.Controllers
                     _messageModel.UserFrom = UserLogin;
                     _messageModel.UserTo = User.Identity.Name;
                     _messageModel.UserToRead = true;
-                    userValues.UserFromRead = false;
                     userValues.UserToRead = true;
                     await _context.SaveChangesAsync();
                 }
